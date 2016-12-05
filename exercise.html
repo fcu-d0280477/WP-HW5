@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ajax's exercise</title>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+
+$(function() {
+	$.ajax({
+		url: "http://140.134.26.71:58080/web-prog/Hotels",
+		type: "GET",
+		dataType: "json",
+		success: function(data) {
+			var items = data.Infos.Info;
+			for(var i = 0; i < items.length; i++) {
+				var name = items[i].Name;
+				var imgURL = items[i].Picture1	;
+				var URL = items[i].Website;
+				
+				//全部偶數個
+				if(items.length%2==0)
+				{
+					if(i%2 ==0)
+					{
+						$("#attractions").append('<tr><td><div>'+name+'</div><div><a href="'+URL+'" target="_blank"><img src="' + imgURL +'" height="200" width="200"></a></div></td>');
+					}else
+					{
+						$("#attractions").append('<td><div>'+name+'</div><div><a href="'+URL+'" target="_blank"><img src="' + imgURL +'" height="200" width="200"></a></div></td></tr>');
+					}
+					//全部基數個
+				}else
+				{
+					//最後一項
+					if(i == items.length-1)
+					{
+						$("#attractions").append('<tr><td><div>'+name+'</div><div><a href="'+URL+'" target="_blank"><img src="' + imgURL +'" height="200" width="200"></a></div></td></tr>');
+					//非最後一項
+					}else
+					{
+						if(i%2 ==0)
+						{
+							$("#attractions").append('<tr><td><div>'+name+'</div><div><a href="'+URL+'" target="_blank"><img src="' + imgURL +'" height="200" width="200"></a></div></td>');
+						}else
+						{
+							$("#attractions").append('<td><div>'+name+'</div><div><a href="'+URL+'" target="_blank"><img src="' + imgURL +'" height="200" width="200"></a></div></td></tr>');
+						}
+					}
+				}
+			}
+		},
+		error: function() {
+		
+		}
+	});
+});
+
+</script>
+<style>
+#attractions {
+    text-align: center;
+    color: red;
+}
+</style>
+</head>
+<body>
+<h1 style="color:blue;margin-left:30px;">Ajax's exercise</h1>
+
+
+<table id="attractions">
+
+
+</table>
+
+</body>
+</html>
